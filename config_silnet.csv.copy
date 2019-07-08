@@ -1,0 +1,2 @@
+cpu,gpu,images_ext,features_prefix,targets_prefix,results_prefix,model_path,dataset_path,imgs_dir,seed,deterministic,train_ratio,valid_ratio,test_ratio,lr,step_size,gamma,num_epochs,batch_size,test_batch_size,num_test_batches
+cpu,cuda:0,.png,resized_,silhouette_,results/results_silnet_,model/silnet.pth,../mapping.csv,../data/SynthHands_Preprocessed/cumulative/,42,True,0.03,0.02,0.01,1e-4,2,0.1,100,8,5,10
