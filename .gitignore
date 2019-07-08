@@ -107,8 +107,8 @@ venv.bak/
 *.png
 *.jpg
 *.txt
-results/
-results_test/
-model/
-model_test/
-data/
+results/*
+results_test/*
+model/*
+model_test/*
+data/*
