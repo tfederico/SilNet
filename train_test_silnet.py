@@ -58,7 +58,7 @@ if deterministic:
 
 
 feature_transforms = transforms.Compose([
-	transforms.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2, hue=0.),
+	#transforms.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2, hue=0.),
 	transforms.ToTensor(),
 	transforms.Normalize([0.5, 0.5, 0.5], [0.5, 0.5, 0.5])
 ])
@@ -70,7 +70,7 @@ target_transforms = transforms.Compose([
 
 transforms = {'feature': feature_transforms, 'target': target_transforms}
 
-hands_dataset = SynthHandsDataset(csv_file=dataset_path, imgs_dir=imgs_dir, csv_config=config_path, transform=transforms)
+"""hands_dataset = SynthHandsDataset(csv_file=dataset_path, imgs_dir=imgs_dir, csv_config=config_path, transform=transforms)
 dataset_size = len(hands_dataset)
 
 
@@ -79,7 +79,11 @@ train_elems = int(dataset_size*train_ratio)
 valid_elems = int(dataset_size*valid_ratio)
 test_elems = dataset_size - valid_elems - train_elems
 
-train_set, valid_set, test_set = torch.utils.data.random_split(hands_dataset, [train_elems, valid_elems, test_elems])
+train_set, valid_set, test_set = torch.utils.data.random_split(hands_dataset, [train_elems, valid_elems, test_elems])"""
+
+train_set = SynthHandsDataset("data/train", transform=transforms)
+valid_set = SynthHandsDataset("data/val", transform=transforms)
+test_set = SynthHandsDataset("data/test", transform=transforms)
 
 image_datasets = {
 	phases[0]: train_set, phases[1]: valid_set, phases[2]: test_set
@@ -89,7 +93,7 @@ image_datasets = {
 dataloaders = {
 	phases[0]: DataLoader(train_set, batch_size=batch_size, shuffle=True, drop_last=True, num_workers=0),
 	phases[1]: DataLoader(valid_set, batch_size=batch_size, shuffle=True, drop_last=True, num_workers=0),
-	phases[2]: DataLoader(test_set, batch_size=test_batch_size, shuffle=False, num_workers=0)
+	phases[2]: DataLoader(test_set, batch_size=batch_size, shuffle=False, drop_last=True, num_workers=0)
 }
 
 
@@ -108,10 +112,10 @@ save_model(model, model_path, back_to=gpu)
 
 model.eval()   # Set model to the evaluation mode
 batch_num = 0
-iterator = iter(dataloaders[phases[2]])
-for i in range(num_test_batches):
-#for inputs, labels in dataloaders[phases[2]]:
-	inputs, labels = next(iterator)
+#iterator = iter(dataloaders[phases[2]])
+#for i in range(num_test_batches):
+for inputs, labels in dataloaders[phases[2]]:
+	#inputs, labels = next(iterator)
 	inputs = inputs.to(device)
 	labels = labels.to(device)
 

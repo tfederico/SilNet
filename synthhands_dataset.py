@@ -1,34 +1,29 @@
 from torch.utils.data import Dataset
-import pandas as pd
-import os
 from PIL import Image
-import numpy as np
-from skimage import io
+from os import listdir
+from os.path import isfile, join
 
 class SynthHandsDataset(Dataset):
-	def __init__(self, csv_file, imgs_dir, csv_config, transform=None):
-		self.imgs_names = pd.read_csv(csv_file, header=None, dtype=str).iloc[:,1]
+	def __init__(self, imgs_dir, transform=None):
 		self.feature_transform = transform["feature"]
 		self.target_transform = transform["target"]
 		self.imgs_dir = imgs_dir
-		config = pd.read_csv(csv_config, header=0, dtype=str)
-		self.images_ext = config["images_ext"].iloc[0]
-		self.features_prefix = config["features_prefix"].iloc[0]
-		self.targets_prefix = config["targets_prefix"].iloc[0]
+		self.images_ext = ".png"
+		self.features_prefix = "feature"
+		self.targets_prefix = "mask"
+		self.length = len([f for f in listdir(imgs_dir) if isfile(join(imgs_dir, f))])
 
 	def __len__(self):
-		return len(self.imgs_names)
+		return self.length
 
 	def __getitem__(self, idx):
-		
-		idx = int(idx) # why??
-		feature_img_name = os.path.join(self.imgs_dir, self.features_prefix + self.imgs_names[idx] + self.images_ext)
-		target_img_name = os.path.join(self.imgs_dir, self.targets_prefix + self.imgs_names[idx] + self.images_ext)
+
+		idx = str(int(idx)) # why??
+		feature_img_name = join(self.imgs_dir, self.features_prefix + idx + self.images_ext)
+		target_img_name = join(self.imgs_dir, self.targets_prefix + idx + self.images_ext)
 		feature_image = Image.open(feature_img_name)
 		target_image = Image.open(target_img_name)
-		#feature_image = np.array(feature_image)
-		#target_image = np.array(target_image)
-		
+
 		if self.feature_transform:
 			feature_image = self.feature_transform(feature_image)
 		if self.target_transform:
