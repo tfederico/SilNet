@@ -102,3 +102,12 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# additional ignores
+*.png
+*.txt
+results/
+results_test/
+model/
+model_test/
+data/
