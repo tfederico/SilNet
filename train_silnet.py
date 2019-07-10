@@ -14,7 +14,7 @@ def train_model(device, model, dataloaders, optimizer, scheduler, num_epochs=25)
     for epoch in range(num_epochs):
         print('Epoch {}/{}'.format(epoch, num_epochs - 1))
         print('-' * 10)
-        
+
         since = time.time()
 
         # Each epoch has a training and validation phase
@@ -23,17 +23,17 @@ def train_model(device, model, dataloaders, optimizer, scheduler, num_epochs=25)
                 scheduler.step()
                 for param_group in optimizer.param_groups:
                     print("LR", param_group['lr'])
-                    
+
                 model.train()  # Set model to training mode
             else:
                 model.eval()   # Set model to evaluate mode
 
             metrics = defaultdict(float)
             epoch_samples = 0
-            
+
             for inputs, labels in dataloaders[phase]:
                 inputs = inputs.to(device)
-                labels = labels.to(device)             
+                labels = labels.to(device)
 
                 # zero the parameter gradients
                 optimizer.zero_grad()
@@ -42,7 +42,7 @@ def train_model(device, model, dataloaders, optimizer, scheduler, num_epochs=25)
                 # track history if only in train
                 with torch.set_grad_enabled(phase == 'train'):
                     outputs = model(inputs)
-                    loss = calc_loss(outputs, labels, metrics)
+                    loss = calc_loss(outputs, labels, metrics, bce_weight=1)
 
                     # backward + optimize only if in training phase
                     if phase == 'train':
