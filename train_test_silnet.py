@@ -56,34 +56,9 @@ if deterministic:
 	torch.backends.cudnn.benchmark = False
 	torch.backends.cudnn.deterministic = True"""
 
-
-feature_transforms = transforms.Compose([
-	#transforms.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2, hue=0.),
-	transforms.ToTensor(),
-	transforms.Normalize([0.5, 0.5, 0.5], [0.5, 0.5, 0.5])
-])
-
-target_transforms = transforms.Compose([
-	transforms.ToTensor(),
-#	transforms.Normalize([0.5], [0.5])
-])
-
-transforms = {'feature': feature_transforms, 'target': target_transforms}
-
-"""hands_dataset = SynthHandsDataset(csv_file=dataset_path, imgs_dir=imgs_dir, csv_config=config_path, transform=transforms)
-dataset_size = len(hands_dataset)
-
-
-
-train_elems = int(dataset_size*train_ratio)
-valid_elems = int(dataset_size*valid_ratio)
-test_elems = dataset_size - valid_elems - train_elems
-
-train_set, valid_set, test_set = torch.utils.data.random_split(hands_dataset, [train_elems, valid_elems, test_elems])"""
-
-train_set = SynthHandsDataset("data/train", transform=transforms)
-valid_set = SynthHandsDataset("data/val", transform=transforms)
-test_set = SynthHandsDataset("data/test", transform=transforms)
+train_set = SynthHandsDataset("data/train")
+valid_set = SynthHandsDataset("data/val")
+test_set = SynthHandsDataset("data/test")
 
 image_datasets = {
 	phases[0]: train_set, phases[1]: valid_set, phases[2]: test_set
