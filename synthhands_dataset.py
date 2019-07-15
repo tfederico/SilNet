@@ -4,6 +4,7 @@ from os import listdir
 from os.path import isfile, join
 import os
 from torchvision import transforms
+import torchvision.transforms.functional as TF
 
 class SynthHandsDataset(Dataset):
 	def __init__(self, imgs_dir, transform=None):
