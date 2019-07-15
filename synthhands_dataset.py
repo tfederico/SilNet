@@ -12,6 +12,10 @@ class SynthHandsDataset(Dataset):
 		self.targets_prefix = "mask"
 		self.length = len([f for f in listdir(imgs_dir) if isfile(join(imgs_dir, f))])//2
 
+
+	def __len__(self):
+		return self.length
+
 	def transform(self, image, mask):
 		# Resize
 		resize = transforms.Resize(size=(282, 282))
