@@ -13,15 +13,15 @@ class SynthHandsDataset(Dataset):
 		self.length = len([f for f in listdir(imgs_dir) if isfile(join(imgs_dir, f))])//2
 
 	def transform(self, image, mask):
-        # Resize
-        resize = transforms.Resize(size=(282, 282))
-        image = resize(image)
-        mask = resize(mask)
+		# Resize
+		resize = transforms.Resize(size=(282, 282))
+		image = resize(image)
+		mask = resize(mask)
 
-        # Random crop
-        i, j, h, w = transforms.RandomCrop.get_params(image, output_size=(256, 256))
-        image = TF.crop(image, i, j, h, w)
-        mask = TF.crop(mask, i, j, h, w)
+		# Random crop
+		i, j, h, w = transforms.RandomCrop.get_params(image, output_size=(256, 256))
+		image = TF.crop(image, i, j, h, w)
+		mask = TF.crop(mask, i, j, h, w)
 
         # Random horizontal flipping
         if random.random() > 0.5:
