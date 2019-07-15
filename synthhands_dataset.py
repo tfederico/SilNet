@@ -19,7 +19,7 @@ class SynthHandsDataset(Dataset):
         mask = resize(mask)
 
         # Random crop
-        i, j, h, w = transforms.RandomCrop.get_params( image, output_size=(256, 256))
+        i, j, h, w = transforms.RandomCrop.get_params(image, output_size=(256, 256))
         image = TF.crop(image, i, j, h, w)
         mask = TF.crop(mask, i, j, h, w)
 
