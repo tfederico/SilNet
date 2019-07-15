@@ -37,7 +37,7 @@ class SynthHandsDataset(Dataset):
 		image = TF.to_tensor(image)
 		mask = TF.to_tensor(mask)
 		image = TF.normalize(image, (0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
-        return image, mask
+		return image, mask
 
 	def __getitem__(self, idx):
 
