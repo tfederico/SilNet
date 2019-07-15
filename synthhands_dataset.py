@@ -9,8 +9,8 @@ class SynthHandsDataset(Dataset):
 
 		self.imgs_dir = imgs_dir
 		self.images_ext = ".png"
-		self.features_prefix = "feature"
-		self.targets_prefix = "mask"
+		self.feat_prefix = "feature"
+		self.targ_prefix = "mask"
 		self.length = len([f for f in listdir(imgs_dir) if isfile(join(imgs_dir, f))])//2
 
 
