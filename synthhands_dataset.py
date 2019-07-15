@@ -23,19 +23,19 @@ class SynthHandsDataset(Dataset):
 		image = TF.crop(image, i, j, h, w)
 		mask = TF.crop(mask, i, j, h, w)
 
-        # Random horizontal flipping
-        if random.random() > 0.5:
-            image = TF.hflip(image)
-            mask = TF.hflip(mask)
+		# Random horizontal flipping
+		if random.random() > 0.5:
+		    image = TF.hflip(image)
+		    mask = TF.hflip(mask)
 
-        # Random vertical flipping
-        if random.random() > 0.5:
-            image = TF.vflip(image)
-            mask = TF.vflip(mask)
+		# Random vertical flipping
+		if random.random() > 0.5:
+		    image = TF.vflip(image)
+		    mask = TF.vflip(mask)
 
-        # Transform to tensor
-        image = TF.to_tensor(image)
-        mask = TF.to_tensor(mask)
+		# Transform to tensor
+		image = TF.to_tensor(image)
+		mask = TF.to_tensor(mask)
 		image = TF.normalize(image, (0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
         return image, mask
 
