@@ -2,6 +2,7 @@ from torch.utils.data import Dataset
 from PIL import Image
 from os import listdir
 from os.path import isfile, join
+import os
 
 class SynthHandsDataset(Dataset):
 	def __init__(self, imgs_dir, transform=None):
