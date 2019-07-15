@@ -3,6 +3,7 @@ from PIL import Image
 from os import listdir
 from os.path import isfile, join
 import os
+from torchvision import transforms
 
 class SynthHandsDataset(Dataset):
 	def __init__(self, imgs_dir, transform=None):
