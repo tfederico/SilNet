@@ -5,6 +5,7 @@ from os.path import isfile, join
 import os
 from torchvision import transforms
 import torchvision.transforms.functional as TF
+import random
 
 class SynthHandsDataset(Dataset):
 	def __init__(self, imgs_dir, transform=None):
