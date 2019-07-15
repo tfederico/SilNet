@@ -48,8 +48,8 @@ class SynthHandsDataset(Dataset):
 
 		idx = str(idx) # why??
 
-		feature_img_name = os.path.join(self.path, self.feat_prefix + idx + self.images_ext)
-		target_img_name = os.path.join(self.path, self.targ_prefix + idx + self.images_ext)
+		feature_img_name = os.path.join(self.imgs_dir, self.feat_prefix + idx + self.images_ext)
+		target_img_name = os.path.join(self.imgs_dir, self.targ_prefix + idx + self.images_ext)
 		feature_image = Image.open(feature_img_name)
 		target_image = Image.open(target_img_name)
 
